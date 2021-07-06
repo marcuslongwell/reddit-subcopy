@@ -1,20 +1,13 @@
 const dotenv = require('dotenv');
 const Reddit = require('reddit');
-const prompt = require('prompt');
-const fs = require('fs-extra');
 const readline = require('readline');
 
 dotenv.config();
-
-prompt.start();
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-// REDDIT_APP_ID
-// console.log(process.env.REDDIT_APP_SECRET);
 
 const input = (message = '') => {
   return new Promise((resolve, reject) => {
@@ -41,20 +34,14 @@ const redditLogin = async (isSource = true) => {
     let password = (isSource ? process.env.REDDIT_PASSWORD_FROM : process.env.REDDIT_PASSWORD_TO) || '';
 
     if (hasTriedEnv || username.length < 1 || password.length < 1) {
-      let answer = await prompt.get([
-        { name: 'username', description: `User you are copying ${isSource ? 'FROM' : 'TO'}` },
-        { name: 'password', description: `${username}'s password`, hidden: true, replace: '*' }
-      ]);
-
-      username = answer.username;
-      password = answer.password;
+      username = await input(`User you are copying ${isSource ? 'FROM' : 'TO'}: `);
+      password = await input(`${username}'s password: `);
     } else {
       hasTriedEnv = true;
     }
 
     reddit.username = username;
     reddit.password = password;
-    
 
     try {
       console.log(`Testing API for ${reddit.username}...`);
