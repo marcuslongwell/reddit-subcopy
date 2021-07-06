@@ -4,7 +4,7 @@
   "description": "a simple script to copy subreddits from one account to another",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js --ignore dev"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/marcuslongwell/reddit-subcopy/issues"
   },
-  "homepage": "https://github.com/marcuslongwell/reddit-subcopy#readme"
+  "homepage": "https://github.com/marcuslongwell/reddit-subcopy#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fs-extra": "^10.0.0",
+    "prompt": "^1.1.0",
+    "reddit": "^1.2.1"
+  }
 }
